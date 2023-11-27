@@ -56,4 +56,21 @@ public class HardPractice {
         }
         return sol;
     }
+    public int totalNQueens(int n) {
+        int[] sol=new int[1];
+        helperNQueen2(n,1,new int[n],sol);
+        return sol[0];
+    }
+    private void helperNQueen2(int n, int i, int[] state, int[] sol){
+        if(i>n)
+            sol[0]++;
+        for(int j=1;j<=n;j++){
+            if(checkNQueen(state,i,j,n))
+            {
+                state[i-1]=j;
+                helperNQueen2(n,i+1,state,sol);
+                state[i-1]=0;
+            }
+        }
+    }
 }
