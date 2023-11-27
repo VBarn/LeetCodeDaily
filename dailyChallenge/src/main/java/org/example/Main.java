@@ -39,4 +39,29 @@ public class Main {
         }
         return max;
     }
+
+    //935. Knight Dialer
+    public int knightDialer(int n) {
+        int[][] hm={{4,6},{8,6},{7,9},{4,8},{0,3,9},{},{0,1,7},{2,6},{1,3},{2,4}};
+        int[] start={0,1,2,3,4,5,6,7,8,9};
+        int[][] memo=new int[n][10];
+        return getPossibilities(hm,start,n,0,memo);
+    }
+
+    private int getPossibilities(int[][] hm, int[] start, int n, int i,int[][] memo) {
+        if(i==n)
+            return 1;
+        long sum=0l;
+        for(int x:start){
+            if(memo[i][x]!=0){
+                sum+=memo[i][x];
+            }
+            else{
+                memo[i][x]=getPossibilities(hm,hm[x],n,i+1,memo);
+                sum+=memo[i][x];
+            }
+            sum=sum%1000000007;
+        }
+        return (int)sum;
+    }
 }
