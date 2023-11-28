@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
         int[][] mat={{0,0,1},{1,1,1},{1,0,1}};
         Main m=new Main();
-        m.largestSubmatrix(mat);
+        m.numberOfWays("SSPPSPSPPPSPPS");
     }
     //1727. Largest Submatrix With Rearrangements
     public int largestSubmatrix(int[][] m) {
@@ -63,5 +63,36 @@ public class Main {
             sum=sum%1000000007;
         }
         return (int)sum;
+    }
+
+    //2147. Number of ways to Divide a Long Corridor
+    public int numberOfWays(String cor) {
+        int n=cor.length();
+        long sol=1;
+        int plant=0,s=1;
+        int i=0;
+        while(i<n && cor.charAt(i)!='S')
+            i++;
+        if(i==n)
+            return 0;
+        i++;
+        plant++;
+        for(;i<cor.length();i++){
+            char cur=cor.charAt(i);
+            if(cur=='S') {
+                plant++;
+                if (plant % 2 != 0) {
+                    sol *= s;
+                    sol = sol % 1000000007;
+                }
+                s=1;
+            }
+            else{
+                s++;
+            }
+        }
+        if(plant%2==0)
+            return (int)sol;
+        return 0;
     }
 }
