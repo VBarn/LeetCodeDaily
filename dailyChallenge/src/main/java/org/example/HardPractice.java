@@ -6,7 +6,7 @@ import java.util.List;
 public class HardPractice {
     public static void main(String[] args){
         HardPractice hp=new HardPractice();
-        hp.solveNQueens(4);
+        hp.minWindow("ADOBECODEBANC","ABC");
     }
     public List<List<String>> solveNQueens(int n) {
         List<List<String>> sol=new ArrayList<>();
@@ -72,5 +72,39 @@ public class HardPractice {
                 state[i-1]=0;
             }
         }
+    }
+
+    //162. Find Peak Element
+    public String minWindow(String s, String t) {
+        int[] mem=new int[1+'z'-'A'];
+        for(char c:t.toCharArray())
+            mem[c-'A']++;
+        int i=0,j=0;
+        int[] cur=new int[1+'z'-'A'];
+        int min=Integer.MAX_VALUE;
+        int low=0,high=0;
+        while(j!=s.length()+1){
+            if(match(cur,mem)) {
+                if(j-i<min){
+                    min=j-i;
+                    low=i;
+                    high=j;
+                }
+                cur[s.charAt(i++) - 'A']--;
+            }
+            else {
+                if(j==s.length())
+                    break;
+                cur[s.charAt(j++) - 'A']++;
+            }
+        }
+        return s.substring(low,high);
+    }
+
+    private boolean match(int[] cur, int[] mem) {
+        for(int i=0;i<cur.length;i++)
+            if(cur[i]<mem[i])
+                return false;
+        return true;
     }
 }
